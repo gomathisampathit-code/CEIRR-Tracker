@@ -1,0 +1,15 @@
+gspread
+google-auth
+gspread-dataframe
+gspread-formatting
+streamlit>=1.45.0
+pandas>=2.2.2
+numpy>=2.0.0
+plotly>=5.22.0
+gspread>=6.1.2
+gspread-dataframe>=4.0.0
+google-auth>=2.35.0
+openpyxl>=3.1.5
+reportlab>=4.2.2
+Pillow>=10.4.0
+watchdog>=4.0.1
