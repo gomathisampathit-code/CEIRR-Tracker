@@ -16,7 +16,7 @@ def send_mail(start_date, end_date, call_pdf, visit_pdf):
     "ceirr.virology@cmcvellore.ac.in",
     "selvakumarprasad@gmail.com",
     ]
-    EMAIL_PASSWORD = "fdhbuegdjjrwtype"
+    EMAIL_PASSWORD = "oswrauqnvcakfbuj"
 
     msg = EmailMessage()
     msg["From"] = SENDER_EMAIL
