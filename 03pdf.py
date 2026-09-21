@@ -673,14 +673,6 @@ visit_df.loc[
     "_Visit_Color_Hex"
 ] = visit_colors[1]
 
-# ---- debug: remove after checking ----
-print(
-    visit_df.loc[
-        visit_df["Recruitment ID"].astype(str).str.strip() == "C-P039",
-        ["Recruitment ID", "Visit_Order", "_Visit_Color_Hex"]
-    ]
-)
-
 visit_df = visit_df[
     [
         "Screening ID",
