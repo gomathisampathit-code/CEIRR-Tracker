@@ -95,7 +95,6 @@ visit_colors = {
     5: "#A9FFFF"
 }
 
-
 # =====================================================
 # AUTH (LOCAL)
 # =====================================================
@@ -611,14 +610,6 @@ def get_visit_order(row):
 
 visit_df["Visit_Order"] = visit_df.apply(get_visit_order, axis=1)
 
-# ---- debug: remove after checking ----
-print(
-    visit_df.loc[
-        visit_df["Recruitment ID"].astype(str).str.strip() == "C-P039",
-        ["Recruitment ID", "(V1/D1) date", "(V2/D2) date", "Visit_Order"]
-    ]
-)
-
 EXCLUDED_FROM_V4_V5 = {
     "C-P002", "C-P003", "C-P009", "C-P011", "C-P013", "C-P015",
     "C-P016", "C-P017", "C-P019", "C-P022", "C-P023", "C-P024",
@@ -679,6 +670,13 @@ visit_df.loc[
     "_Visit_Color_Hex"
 ] = visit_colors[1]
 
+# ---- debug: remove after checking ----
+print(
+    visit_df.loc[
+        visit_df["Recruitment ID"].astype(str).str.strip() == "C-P039",
+        ["Recruitment ID", "Visit_Order", "_Visit_Color_Hex"]
+    ]
+)
 
 visit_df = visit_df[
     [
