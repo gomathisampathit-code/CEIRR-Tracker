@@ -268,14 +268,6 @@ for col, vnum in visit_map.items():
 
     all_rows.extend(temp.to_dict("records"))  
 
-print(
-    visit_df.loc[
-        visit_df["Recruitment ID"].astype(str).str.strip() == "C-P039",
-        ["Recruitment ID", "(V1/D1) date", "(V2/D2) date", "Visit_Order"]
-    ]
-)
-
-
 # =====================================================
 # FINAL DATAFRAME
 # =====================================================
@@ -618,6 +610,14 @@ def get_visit_order(row):
     return min(filled + 1, 5)
 
 visit_df["Visit_Order"] = visit_df.apply(get_visit_order, axis=1)
+
+# ---- debug: remove after checking ----
+print(
+    visit_df.loc[
+        visit_df["Recruitment ID"].astype(str).str.strip() == "C-P039",
+        ["Recruitment ID", "(V1/D1) date", "(V2/D2) date", "Visit_Order"]
+    ]
+)
 
 EXCLUDED_FROM_V4_V5 = {
     "C-P002", "C-P003", "C-P009", "C-P011", "C-P013", "C-P015",
