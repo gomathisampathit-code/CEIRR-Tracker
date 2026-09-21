@@ -663,6 +663,9 @@ visit_df["Visit reminder"] = (
 )
 
 #visit_df["_Visit_Color_Hex"] = visit_colors[2]
+visit_df["_Visit_Color_Hex"] = (
+    visit_df["Visit_Order"].map(visit_colors).fillna(visit_colors[1])
+)
 
 visit_df.loc[
     visit_df["Recruitment ID"].isna()
