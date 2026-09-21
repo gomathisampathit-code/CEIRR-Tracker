@@ -148,19 +148,19 @@ for col in [
 
 today = dt.date.today()
 
-# Upcoming Sunday
-days_until_sunday = (6 - today.weekday()) % 7
-start_date = today + dt.timedelta(days=days_until_sunday)
+# Treat Saturday as already belonging to the next week
+ref = today + dt.timedelta(days=1)
 
-# Next Saturday
+# Sunday on or before ref
+start_date = ref - dt.timedelta(days=(ref.weekday() + 1) % 7)
+
+# Saturday of that week
 end_date = start_date + dt.timedelta(days=6)
-
 
 def in_week(x):
     if pd.isna(x):
         return False
     return start_date <= x.date() <= end_date
-
 
 print(f"Week Range: {start_date} to {end_date}")
 
