@@ -268,6 +268,13 @@ for col, vnum in visit_map.items():
 
     all_rows.extend(temp.to_dict("records"))  
 
+print(
+    visit_df.loc[
+        visit_df["Recruitment ID"].astype(str).str.strip() == "C-P039",
+        ["Recruitment ID", "(V1/D1) date", "(V2/D2) date", "Visit_Order"]
+    ]
+)
+
 
 # =====================================================
 # FINAL DATAFRAME
