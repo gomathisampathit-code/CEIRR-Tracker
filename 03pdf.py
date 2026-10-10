@@ -694,7 +694,7 @@ visit_df = visit_df[
     ]
 ]
 
-
+visit_file_name = None
 if visit_df.empty:
 
     print("No Visit List records found.")
