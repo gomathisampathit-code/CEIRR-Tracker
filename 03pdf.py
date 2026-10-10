@@ -649,13 +649,19 @@ visit_df["Name/Parent Name/Age/Location"] = (
     + visit_df["Location"].astype(str)
 )
 
+#visit_df["Phone Numbers"] = (
+#    visit_df[["Phone no.1", "Phone no.2"]]
+ #   .fillna("")
+  #  .astype(str)
+   # .agg(" / ".join, axis=1)
+   # .apply(format_phone)
+#)
+
 visit_df["Phone Numbers"] = (
-    visit_df[["Phone no.1", "Phone no.2"]]
-    .fillna("")
-    .astype(str)
-    .agg(" / ".join, axis=1)
-    .apply(format_phone)
-)
+    visit_df["Phone no.1"].fillna("").astype(str)
+    + " / "
+    + visit_df["Phone no.2"].fillna("").astype(str)
+).apply(format_phone)
 
 visit_df["Visit reminder"] = (
     visit_df["Date of confirmed visit"]
