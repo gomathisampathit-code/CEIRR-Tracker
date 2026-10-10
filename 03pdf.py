@@ -204,8 +204,8 @@ if not v1.empty:
 
 v1_check = df[
     (df["Visit 1 - 1D Notification"].notna()) &
-    (df["Visit 1 - 1D Notification"].dt.date >= start_date) &
-    (df["Visit 1 - 1D Notification"].dt.date <= end_date)
+    (df["Visit 1 - 1D Notification"].dt.normalize() >= pd.Timestamp(start_date)) &
+    (df["Visit 1 - 1D Notification"].dt.normalize() <= pd.Timestamp(end_date))
 ]
 
 print(f"\nVisit 1 records in week: {len(v1_check)}")
@@ -590,8 +590,8 @@ visit_df["Date of confirmed visit"] = pd.to_datetime(
 
 visit_df = visit_df[
     visit_df["Date of confirmed visit"].notna()
-    & (visit_df["Date of confirmed visit"].dt.date >= start_date)
-    & (visit_df["Date of confirmed visit"].dt.date <= end_date)
+    & (visit_df["Date of confirmed visit"].dt.normalize() >= pd.Timestamp(start_date))
+    & (visit_df["Date of confirmed visit"].dt.normalize() <= pd.Timestamp(end_date))
 ].copy()
 
 completed_visit_cols = [
