@@ -235,57 +235,59 @@ print(
     ].to_string(index=False)
 )
 
-# =====================================================
-# VISIT 2–5 (COHORT)
-# =====================================================
-visit_map = {
-    "Visit 2 - 2D Notification": 2,
-    "Visit 3 - S Notification": 3,
-    "Visit 4 - 3D Notification": 4,
-    "Visit 5 - S Notification": 5
-}
 
-for col, vnum in visit_map.items():
 
-    if col not in df.columns:
-        continue
+# # =====================================================
+# # VISIT 2–5 (COHORT)
+# # =====================================================
+# visit_map = {
+#     "Visit 2 - 2D Notification": 2,
+#     "Visit 3 - S Notification": 3,
+#     "Visit 4 - 3D Notification": 4,
+#     "Visit 5 - S Notification": 5
+# }
 
-    temp = df[df[col].apply(in_week)].copy()
+# for col, vnum in visit_map.items():
 
-    if temp.empty:
-        continue
+#     if col not in df.columns:
+#         continue
 
-    temp["Date of Collection/Recruitment"] = temp["Date of Recruitment"]
+#     temp = df[df[col].apply(in_week)].copy()
 
-    temp["Notification Date"] = temp[col]
-    temp["_Visit_Color_Hex"] = visit_colors[vnum]
+#     if temp.empty:
+#         continue
 
-    temp["Phone Numbers"] = (
-        temp[["Phone no.1", "Phone no.2"]]
-        .fillna("")
-        .astype(str)
-        .agg(" / ".join, axis=1)
-        .apply(format_phone)
-    )
+#     temp["Date of Collection/Recruitment"] = temp["Date of Recruitment"]
 
-    # Correct Aravind dates for each visit
-    if vnum == 2:
-        temp["Aravind Available date1"] = temp["Aravind Visit2 date1"]
-        temp["Aravind Available date2"] = temp["Aravind Visit2 date2"]
+#     temp["Notification Date"] = temp[col]
+#     temp["_Visit_Color_Hex"] = visit_colors[vnum]
 
-    elif vnum == 3:
-        temp["Aravind Available date1"] = temp["Aravind Visit3 date1"]
-        temp["Aravind Available date2"] = temp["Aravind Visit3 date2"]
+#     temp["Phone Numbers"] = (
+#         temp[["Phone no.1", "Phone no.2"]]
+#         .fillna("")
+#         .astype(str)
+#         .agg(" / ".join, axis=1)
+#         .apply(format_phone)
+#     )
 
-    elif vnum == 4:
-        temp["Aravind Available date1"] = temp["Aravind Visit4 date1"]
-        temp["Aravind Available date2"] = temp["Aravind Visit4 date2"]
+#     # Correct Aravind dates for each visit
+#     if vnum == 2:
+#         temp["Aravind Available date1"] = temp["Aravind Visit2 date1"]
+#         temp["Aravind Available date2"] = temp["Aravind Visit2 date2"]
 
-    elif vnum == 5:
-        temp["Aravind Available date1"] = temp["Aravind Visit5 date1"]
-        temp["Aravind Available date2"] = temp["Aravind Visit5 date2"]
+#     elif vnum == 3:
+#         temp["Aravind Available date1"] = temp["Aravind Visit3 date1"]
+#         temp["Aravind Available date2"] = temp["Aravind Visit3 date2"]
 
-    all_rows.extend(temp.to_dict("records"))  
+#     elif vnum == 4:
+#         temp["Aravind Available date1"] = temp["Aravind Visit4 date1"]
+#         temp["Aravind Available date2"] = temp["Aravind Visit4 date2"]
+
+#     elif vnum == 5:
+#         temp["Aravind Available date1"] = temp["Aravind Visit5 date1"]
+#         temp["Aravind Available date2"] = temp["Aravind Visit5 date2"]
+
+#     all_rows.extend(temp.to_dict("records"))  
 
 # =====================================================
 # FINAL DATAFRAME
