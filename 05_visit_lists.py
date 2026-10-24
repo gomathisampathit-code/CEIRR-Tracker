@@ -25,7 +25,7 @@ from reportlab.platypus import (BaseDocTemplate, Frame, PageTemplate,
 # ----------------------------------------------------------------- CONFIG --
 SHEET_URL = "https://docs.google.com/spreadsheets/d/1z3ey_vJrTNtbLAPlzRXYWEJFRY4_-89nvJLwmSBXRfs/edit?usp=sharing"   # full URL or just the sheet id
 WORKSHEET_NAME = Database            # e.g. "COHORT Follow-up"; None = first tab
-CREDS_FILE = os.environ.get("GOOGLE_APPLICATION_CREDENTIALS", "service_account.json")
+CREDS_FILE = os.environ.get("gcp_service_account", "service_account.json")
 
 START_AFTER = 1025               # Visit-1 list only looks at CEIR-numbers > this. None = no limit
 DUE_CUTOFF = dt.date(2026, 12, 14)
