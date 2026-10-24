@@ -23,9 +23,8 @@ from reportlab.platypus import (BaseDocTemplate, Frame, PageTemplate,
                                 Paragraph, Spacer, Table, TableStyle)
 
 # ----------------------------------------------------------------- CONFIG --
-SHEET_URL = "https://docs.google.com/spreadsheets/d/1z3ey_vJrTNtbLAPlzRXYWEJFRY4_-89nvJLwmSBXRfs/edit?usp=sharing"   # full URL or just the sheet id
-WORKSHEET_NAME = "Database"            # e.g. "COHORT Follow-up"; None = first tab
-CREDS_FILE = os.environ.get("gcp_service_account", "service_account.json")
+SHEET_URL = "https://docs.google.com/spreadsheets/d/1z3ey_vJrTNtbLAPlzRXYWEJFRY4_-89nvJLwmSBXRfs/edit?usp=sharing"
+WORKSHEET_NAME = "Database"      # None = first tab
 
 START_AFTER = 1025               # Visit-1 list only looks at CEIR-numbers > this. None = no limit
 DUE_CUTOFF = dt.date(2026, 12, 14)
@@ -53,7 +52,13 @@ VISITS = {
 # ------------------------------------------------------------ LOAD SHEET --
 def load_sheet() -> pd.DataFrame:
     import gspread
-    gc = gspread.service_account(filename=CREDS_FILE)
+    import streamlit as st
+    from google.oauth2.service_account import Credentials
+    creds = Credentials.from_service_account_info(
+        st.secrets["gcp_service_account"],
+        scopes=["https://www.googleapis.com/auth/spreadsheets",
+                "https://www.googleapis.com/auth/drive"])
+    gc = gspread.authorize(creds)
     sh = gc.open_by_url(SHEET_URL) if SHEET_URL.startswith("http") else gc.open_by_key(SHEET_URL)
     ws = sh.worksheet(WORKSHEET_NAME) if WORKSHEET_NAME else sh.sheet1
     values = ws.get_all_values()
