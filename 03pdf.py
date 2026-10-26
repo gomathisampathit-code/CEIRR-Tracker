@@ -140,48 +140,28 @@ for col in [
 # =====================================================
 # WEEK LOGIC (SATURDAY → NEXT SUNDAY)
 # =====================================================
-#today = dt.date.today()
-
-#start_date = today - dt.timedelta(days=(today.weekday() + 2) % 7)
-#end_date = start_date + dt.timedelta(days=8)
-
-#today = dt.date.today()
-
-# Treat Saturday as already belonging to the next week
-#ref = today + dt.timedelta(days=1)
-
-# Sunday on or before ref
-#start_date = ref - dt.timedelta(days=(ref.weekday() + 1) % 7)
-
-# Saturday of that week
-#end_date = start_date + dt.timedelta(days=6)
-
-#def in_week(x):
-    #if pd.isna(x):
-        #return False
-    #return start_date <= x.date() <= end_date
-
-#print(f"Week Range: {start_date} to {end_date}")
-
-
-
-# Date range: Today to 8 November 2026
 today = dt.date.today()
-start_date = today
-end_date = dt.date(2026, 11, 8)
+
+start_date = today - dt.timedelta(days=(today.weekday() + 2) % 7)
+end_date = start_date + dt.timedelta(days=8)
+
+today = dt.date.today()
+
+#Treat Saturday as already belonging to the next week
+ref = today + dt.timedelta(days=1)
+
+#Sunday on or before ref
+start_date = ref - dt.timedelta(days=(ref.weekday() + 1) % 7)
+
+#Saturday of that week
+end_date = start_date + dt.timedelta(days=6)
 
 def in_week(x):
     if pd.isna(x):
         return False
-
-    x = pd.to_datetime(x, errors="coerce")
-
-    if pd.isna(x):
-        return False
-
     return start_date <= x.date() <= end_date
 
-print(f"Date Range: {start_date} to {end_date}")
+print(f"Week Range: {start_date} to {end_date}")
 
 
 # =====================================================
