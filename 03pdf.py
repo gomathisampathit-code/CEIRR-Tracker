@@ -147,13 +147,13 @@ end_date = start_date + dt.timedelta(days=8)
 
 today = dt.date.today()
 
-#Treat Saturday as already belonging to the next week
+# Treat Saturday as already belonging to the next week
 ref = today + dt.timedelta(days=1)
 
-#Sunday on or before ref
+# Sunday on or before ref
 start_date = ref - dt.timedelta(days=(ref.weekday() + 1) % 7)
 
-#Saturday of that week
+# Saturday of that week
 end_date = start_date + dt.timedelta(days=6)
 
 def in_week(x):
@@ -162,7 +162,6 @@ def in_week(x):
     return start_date <= x.date() <= end_date
 
 print(f"Week Range: {start_date} to {end_date}")
-
 
 # =====================================================
 # PHONE FORMATTER
