@@ -754,7 +754,7 @@ df_partial["Visit 1 - 1D Notification"] = df_partial.apply(
         add_days(row["Date of Collection"], 84)
         if str(row.get("Result Type", "")).strip().lower() == "positive"
         else (
-            add_days(row["Date of Collection"], 7)
+            add_days(row["Date of Collection"], 14)
             if str(row.get("Result Type", "")).strip().lower() == "negative"
             else pd.NaT
         ),
