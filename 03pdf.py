@@ -719,6 +719,39 @@ else:
 print("DONE")
 
 # =====================================================
+# CSV DOWNLOAD LINKS (Google Sheet tabs -> CSV export URL)
+# =====================================================
+from gspread_dataframe import set_with_dataframe
+
+sh = gc.open_by_url(DEST_SHEET_URL)
+
+def publish_csv_tab(frame, tab_name):
+    """Write frame to a tab and return a direct CSV download link."""
+    out = frame.drop(columns=["_Visit_Color_Hex"], errors="ignore").copy()
+
+    # make dates plain text so they don't turn into serial numbers
+    for c in out.columns:
+        if pd.api.types.is_datetime64_any_dtype(out[c]):
+            out[c] = out[c].dt.strftime("%Y-%m-%d")
+
+    try:
+        w = sh.worksheet(tab_name)
+        w.clear()
+    except gspread.WorksheetNotFound:
+        w = sh.add_worksheet(title=tab_name, rows=1000, cols=len(out.columns) + 2)
+
+    set_with_dataframe(w, out, include_index=False)
+    return f"https://docs.google.com/spreadsheets/d/{sh.id}/export?format=csv&gid={w.id}"
+
+call_csv_link = publish_csv_tab(final_df, "Call_List_CSV")
+visit_csv_link = publish_csv_tab(visit_df, "Visit_List_CSV") if visit_file_name else None
+
+print("Call CSV:", call_csv_link)
+print("Visit CSV:", visit_csv_link)
+
+
+
+# =====================================================
 # SEND EMAIL
 # =====================================================
 from mail_04 import send_mail
@@ -738,4 +771,6 @@ send_mail(
     end_date,
     os.path.abspath(file_name),
     os.path.abspath(visit_file_name) if visit_file_name else None
+    call_csv_link=call_csv_link,
+    visit_csv_link=visit_csv_link,
 )
