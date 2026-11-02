@@ -770,7 +770,7 @@ send_mail(
     start_date,
     end_date,
     os.path.abspath(file_name),
-    os.path.abspath(visit_file_name) if visit_file_name else None
+    os.path.abspath(visit_file_name) if visit_file_name else None,
     call_csv_link=call_csv_link,
     visit_csv_link=visit_csv_link,
 )
