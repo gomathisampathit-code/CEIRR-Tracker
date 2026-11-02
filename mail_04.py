@@ -3,7 +3,7 @@ import smtplib
 from email.message import EmailMessage
 from email.utils import make_msgid
 
-def send_mail(start_date, end_date, call_pdf, visit_pdf):
+def send_mail(start_date, end_date, call_pdf, visit_pdf, call_csv_link=None, visit_csv_link=None):
 
     SENDER_EMAIL = "gomathisampath2309@gmail.com" 
     RECEIVER_EMAIL = ["gomathisampath2309@gmail.com",
@@ -38,12 +38,21 @@ def send_mail(start_date, end_date, call_pdf, visit_pdf):
         with open(MESSAGE_ID_FILE, "w") as f:
             f.write(original_id)
 
+    links_text = ""
+    if call_csv_link or visit_csv_link:
+        links_text = "CSV downloads:\n"
+        if call_csv_link:
+            links_text += f"  Call list CSV: {call_csv_link}\n"
+        if visit_csv_link:
+            links_text += f"  Visit list CSV: {visit_csv_link}\n"
+        links_text += "\n"
+
     body = f"""\
 Dear Team,
 
 The following participants have upcoming call and visit notifications between {start_date} to {end_date}.
 
-Best regards,
+{links_text}Best regards,
 CEIRR Notification Tracker
 """
 
